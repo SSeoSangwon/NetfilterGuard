@@ -1,0 +1,112 @@
+NetfilterGuard isolated validation
+kernel: 5.15.0-139-generic
+date_utc: 2026-10-07T15:57:11Z
+
+===== baseline =====
+NetfilterGuard status
+interface: nfg-host
+tracked_sources: 1
+total_packets: 5
+dropped_packets: 0
+ban_events: 0
+fragment_packets: 0
+table_full_events: 0
+allocation_failures: 0
+window_seconds: 5
+ban_seconds: 8
+syn_threshold: 40
+tcp_threshold: 100
+udp_threshold: 100
+min_completion_pct: 25
+idle_timeout_seconds: 60
+max_entries: 128
+[1/4] ordinary TCP connections
+
+===== after_normal_tcp =====
+NetfilterGuard status
+interface: nfg-host
+tracked_sources: 2
+total_packets: 29
+dropped_packets: 0
+ban_events: 0
+fragment_packets: 0
+table_full_events: 0
+allocation_failures: 0
+window_seconds: 5
+ban_seconds: 8
+syn_threshold: 40
+tcp_threshold: 100
+udp_threshold: 100
+min_completion_pct: 25
+idle_timeout_seconds: 60
+max_entries: 128
+Waiting for a fresh observation window...
+[2/4] finite SYN-heavy probe
+
+===== after_syn_probe =====
+NetfilterGuard status
+interface: nfg-host
+tracked_sources: 2
+total_packets: 137
+dropped_packets: 21
+ban_events: 1
+fragment_packets: 0
+table_full_events: 0
+allocation_failures: 0
+window_seconds: 5
+ban_seconds: 8
+syn_threshold: 40
+tcp_threshold: 100
+udp_threshold: 100
+min_completion_pct: 25
+idle_timeout_seconds: 60
+max_entries: 128
+Waiting for temporary SYN block to expire...
+[3/4] finite TCP-rate probe
+
+===== after_tcp_rate_probe =====
+NetfilterGuard status
+interface: nfg-host
+tracked_sources: 2
+total_packets: 258
+dropped_packets: 42
+ban_events: 2
+fragment_packets: 0
+table_full_events: 0
+allocation_failures: 0
+window_seconds: 5
+ban_seconds: 8
+syn_threshold: 40
+tcp_threshold: 100
+udp_threshold: 100
+min_completion_pct: 25
+idle_timeout_seconds: 60
+max_entries: 128
+Waiting for temporary TCP block to expire...
+[4/4] finite UDP-rate probe
+
+===== after_udp_rate_probe =====
+NetfilterGuard status
+interface: nfg-host
+tracked_sources: 2
+total_packets: 379
+dropped_packets: 63
+ban_events: 3
+fragment_packets: 0
+table_full_events: 0
+allocation_failures: 0
+window_seconds: 5
+ban_seconds: 8
+syn_threshold: 40
+tcp_threshold: 100
+udp_threshold: 100
+min_completion_pct: 25
+idle_timeout_seconds: 60
+max_entries: 128
+
+===== kernel_log_tail =====
+[4785006.618039] netfilter_guard: loaded interface=nfg-host window=5s syn=40 tcp=100 udp=100 ban=8s max_entries=128
+[4785015.669328] netfilter_guard: blocked source=10.200.0.2 reason=syn-rate-low-completion syn=40 ack=0 tcp=79 udp=0 ban=8s
+[4785027.174518] netfilter_guard: blocked source=10.200.0.2 reason=tcp-rate syn=0 ack=0 tcp=100 udp=0 ban=8s
+[4785038.481876] netfilter_guard: blocked source=10.200.0.2 reason=udp-rate syn=0 ack=0 tcp=0 udp=100 ban=8s
+Validation finished. Result: results/runtime_validation.txt
