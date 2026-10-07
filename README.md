@@ -1,6 +1,6 @@
 # NetfilterGuard
 
-**Fall 2024 · SKKU Network System Software Design (ECE5989) Course Mini Project**
+**Fall 2024 · SKKU Network System S/W Design (ECE5989) Project**
 
 ## Overview
 
